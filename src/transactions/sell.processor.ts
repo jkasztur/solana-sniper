@@ -40,33 +40,24 @@ export class SellProcessor {
 		if (Number.parseInt(balance) === 0) {
 			return
 		}
-		let txId: string
-		try {
-			const sellTx = await this.transactionsService.prepareTransaction(poolKeys, false, balance)
-			txId = await this.transactionsService.sendTransaction(sellTx)
-		} catch (err) {
-			if (err.message.includes('Blockhash not found')) {
-				this.logger.warn(`[${pool}] Retrying sell, because blochhash not found`)
-				await this.sellQueue.add(job.data)
-				return
-			} else {
-				throw err
-			}
+		const sellTx = await this.transactionsService.prepareTransaction(poolKeys, false, balance)
+		const txId = await this.transactionsService.sendTransaction(sellTx)
 
-		}
 		this.logger.log(`[${pool}] SELL TX: https://solscan.io/tx/${txId}`)
 		const exists = await waitFor(90000, async () => {
 			const transaction = await this.web3Client.getTransaction(txId)
 			return !!transaction
 		})
-		this.logger.log(`[tx:${txId}] Status: ${exists}`)
 		if (!exists) {
-			return
+			throw new Error(`[tx:${txId}] Failed, retrying`)
+		} else {
+			this.logger.log(`[tx:${txId}] SELL SUCCESSFULL`)
 		}
 	}
 
 	@OnQueueFailed()
 	async onFailed(job: Job, err: Error) {
-		this.logger.error({ data: job.data, err: JSON.stringify({ msg: err.message, stack: err.stack }) })
+		this.logger.error({ data: job.data, err: err.message })
+		await this.sellQueue.add(job.data)
 	}
 }

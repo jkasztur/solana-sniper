@@ -13,7 +13,7 @@ import { SellProcessor } from "./sell.processor";
 			name: 'buy'
 		}),
 		BullModule.registerQueue({
-			name: 'sell'
+			name: 'sell',
 		}),
 		ConfigModule
 	],

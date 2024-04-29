@@ -54,7 +54,7 @@ export class InitilizeListener {
 
 	@OnEvent('initialize2')
 	async handleInitialize2({ signature, openTime }: Initialize2Event) {
-		const isLocked = this.lockSignature(signature)
+		const isLocked = await this.lockSignature(signature)
 		if (!isLocked) {
 			return
 		}

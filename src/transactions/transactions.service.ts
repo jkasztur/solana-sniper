@@ -1,6 +1,5 @@
-import { Liquidity, LiquidityAssociatedPoolKeys, LiquidityPoolKeys, LiquidityPoolKeysV4, SPL_ACCOUNT_LAYOUT, TOKEN_PROGRAM_ID, Token, TokenAmount } from '@raydium-io/raydium-sdk'
-import { Keypair, PublicKey, Signer, Transaction, TransactionMessage, VersionedTransaction } from "@solana/web3.js";
-import { Wallet } from '@coral-xyz/anchor'
+import { Liquidity, LiquidityPoolKeysV4, SPL_ACCOUNT_LAYOUT, TOKEN_PROGRAM_ID, Token, TokenAmount } from '@raydium-io/raydium-sdk'
+import { Keypair, PublicKey, TransactionMessage, VersionedTransaction } from "@solana/web3.js";
 import { Injectable, Logger } from "@nestjs/common";
 import bs58 from 'bs58'
 import { Web3Client } from 'src/web3/web3.client';
