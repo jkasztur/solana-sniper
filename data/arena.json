@@ -1,0 +1,38 @@
+{
+	"queues": [
+		{
+			"name": "listing.new",
+			"hostId": "redis",
+			"redis": {
+				"host": "redis",
+				"port": 6379
+			}
+		},
+		{
+			"name": "buy",
+			"hostId": "redis",
+			"redis": {
+				"host": "redis",
+				"port": 6379
+			}
+		},
+		{
+			"name": "sell",
+			"hostId": "redis",
+			"redis": {
+				"host": "redis",
+				"port": 6379
+			}
+		},
+		{
+			"name": "check.tx",
+			"hostId": "redis",
+			"redis": {
+				"host": "redis",
+				"port": 6379
+			}
+		}
+
+
+	]
+}

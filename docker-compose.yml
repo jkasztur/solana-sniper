@@ -1,0 +1,45 @@
+version: "3"
+
+services:
+  app:
+    image: node:20.9.0-alpine
+    container_name: solana-sniper
+    working_dir: /app
+    volumes:
+      - .:/app:delegated
+    environment:
+      RPC_ENDPOINT: # add your own
+      WSS_ENDPOINT: # add your own
+      WALLET_PRIVATE_KEY: # add your own
+
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    restart: on-failure
+    command: npm run dev
+    ports:
+      - 3002:80
+    depends_on:
+      - redis
+
+# Services
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis
+    ports:
+      - 3005:6379
+    command: [ "redis-server", "--appendonly", "yes" ]
+    volumes:
+      - ./local/redis:/data
+    restart: on-failure
+
+  arena:
+    image: mixmaxhq/arena
+    container_name: arena
+    ports:
+      - 3007:4567
+    volumes:
+      - ./data/arena.json:/opt/arena/index.json
+
+networks:
+  default:
+    name: solana-listings
