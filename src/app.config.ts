@@ -7,7 +7,7 @@ export interface Config {
 	web3: {
 		rpcEndpoint: string,
 		wssEndpoint: string
-	},
+	       },
 	testMode: boolean, // if true, will not buy anything, just verify
 	walletPrivateKey: string,
 	buyAmount: string // '1000000' -> 0.001 SOL
