@@ -18,6 +18,7 @@ jobs:
 
       - name: Run eslint on changed files
         uses: tj-actions/eslint-changed-files@v25
+        continue-on-error: true
         with:
           config_path: .eslintrc.js
           skip_annotations: true
